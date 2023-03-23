@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace EV_AreaRandomizer
+namespace UseWindowChromeTitleBarWPFUsingMVVM
 {
     public class WindowChromeCommand : ICommand
     {

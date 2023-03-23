@@ -2,8 +2,245 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:UseWindowChromeTitleBarWPFUsingMVVM"
-             StartupUri="Views\SampleWindowView.xaml">
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             StartupUri="Views\SampleWindowChromeView.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <!--Base style for title bar buttons Minimize & Maximize-->
+            <Style x:Key="CaptionButtonStyle" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="LayoutRoot" Background="Transparent" Width="44" Height="30">
+                                <TextBlock x:Name="txt" Text="{TemplateBinding Content}" FontFamily="Segoe MDL2 Assets" FontSize="10" 
+                                   Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Aliased"  TextOptions.TextFormattingMode="Display"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="LayoutRoot" Property="Background" Value="#FF4D4D4D"/>
+                                    <Setter TargetName="txt" Property="Foreground" Value="white"/>
+                                </Trigger>
+                                <Trigger Property="Content" Value="&#xE106;">
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--Base style for title bar buttons Close-->
+            <Style x:Key="CaptionButtonStyleClose" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="LayoutRoot" Background="Transparent" Width="44" Height="30">
+                                <TextBlock x:Name="txt" Text="{TemplateBinding Content}" FontFamily="Segoe MDL2 Assets" FontSize="10" 
+                                   Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Aliased"  TextOptions.TextFormattingMode="Display"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="LayoutRoot" Property="Background" Value="#FFE41F1F"/>
+                                    <Setter TargetName="txt" Property="Foreground" Value="white"/>
+                                </Trigger>
+                                <Trigger Property="Content" Value="&#xE106;">
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="CustomButtonStyle" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="LayoutRoot" Background="#FF2D2C2C">
+                                <Border x:Name="border" BorderBrush="Gray" BorderThickness="0.5">
+                                    <TextBlock x:Name="txt" Text="{TemplateBinding Content}" FontSize="11"
+                                   Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Grayscale" TextOptions.TextFormattingMode="Display"/>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="LayoutRoot" Property="Background" Value="#FF4D4D4D"/>
+                                    <Setter TargetName="txt" Property="Foreground" Value="#E5E5E5"/>
+                                    <Setter TargetName="border" Property="BorderBrush" Value="#E5E5E5"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="LayoutRoot" Property="Background" Value="Transparent"/>
+                                    <Setter TargetName="txt" Property="Foreground" Value="Transparent"/>
+                                    <Setter TargetName="border" Property="BorderBrush" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="Content" Value="Stop">
+                                    <Setter TargetName="LayoutRoot" Property="Background" Value="#FFEC4141"/>
+                                    <Setter TargetName="txt" Property="Foreground" Value="White"/>
+                                    <Setter TargetName="border" Property="BorderBrush" Value="Transparent"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="CustomTabItemStyle" TargetType="TabItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TabItem">
+                            <Grid x:Name="LayoutRoot" Background="#FF2D2C2C">
+                                <Border Name="border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                    <TextBlock x:Name="txt" Text="{TemplateBinding Header}" Foreground="DarkGray"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4 0 4 0"/>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="txt" Property="Foreground" Value="White"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#FFF7E2A7" />
+                                    <Setter TargetName="txt" Property="Foreground" Value="Black"/>
+                                    <Setter TargetName="txt" Property="FontWeight" Value="Bold"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="False">
+                                    <Setter TargetName="border" Property="Background" Value="#FF3C3C3C" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="MyCustomTabItemStyle" TargetType="TabItem" BasedOn="{StaticResource CustomTabItemStyle}">
+                <Setter Property="Header" Value=""/>
+            </Style>
+
+
+            <Style TargetType="Button" BasedOn="{StaticResource CustomButtonStyle}">
+                <Setter Property="Content" Value="Get Update"/>
+            </Style>
+
+            <!--Minimize-->
+            <Style x:Key="MinimizeButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
+                <Setter Property="Content" Value="&#xE949;"/>
+            </Style>
+
+            <!--Restore-->
+            <Style x:Key="RestoreButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
+                <Setter Property="Content" Value="&#xE923;"/>
+            </Style>
+
+            <!--Maximize-->
+            <Style x:Key="MaximizeButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
+                <Setter Property="Content" Value="&#xE739;"/>
+            </Style>
+
+            <!--Close-->
+            <Style x:Key="CloseButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyleClose}">
+                <Setter Property="Content" Value="&#xE106;"/>
+            </Style>
+
+            <Style TargetType="{x:Type Border}" x:Key="DarkBorderStyle">
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="2"/>
+                <Setter Property="Background" Value="#FF333333"/>
+            </Style>
+
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="Padding" Value="2" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+            </Style>
+
+            <Style TargetType="{x:Type TextBlock}" x:Key="TextBlockShadowStyle">
+                <Setter Property="Foreground" Value="#FFFFFF" />
+                <Setter Property="Padding" Value="2" />
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect ShadowDepth="1" BlurRadius="5" Opacity="1" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="Padding" Value="2" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"/>
+                <Setter Property="BorderThickness" Value="0.5"/>
+                <Setter Property="AllowDrop" Value="true"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                            <Border Name="border" 
+                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    Background="{TemplateBinding Background}" 
+                                    SnapsToDevicePixels="True">
+                                <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter TargetName="border" Property="Opacity" Value="0.56"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource {x:Type ScrollBar}}">
+                <Style.Resources>
+                    <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">10</sys:Double>
+                    <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                    <sys:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarHeightKey}">10</sys:Double>
+                    <sys:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">10</sys:Double>
+                </Style.Resources>
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Opacity" Value="0.3"/>
+                <Setter Property="Background" Value="#FF4B4949"/>
+                <!--<Setter Property="BorderBrush" Value="{DynamicResource recBorder}"/>
+                <Setter Property="Effect" Value="{DynamicResource dropshadowEffect}"/>-->
+            </Style>
+
+            <Style TargetType="ToolTip">
+                <Setter Property="Background" Value="#FF3C3C3C"/>
+            </Style>
+
+            <Style TargetType="TabItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TabItem">
+                            <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="#FFF7E2A7" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="False">
+                                    <Setter TargetName="Border" Property="Background" Value="#FF3C3C3C" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

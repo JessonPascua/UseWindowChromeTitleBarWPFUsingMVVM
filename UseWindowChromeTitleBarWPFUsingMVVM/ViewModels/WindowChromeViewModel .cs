@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace EV_AreaRandomizer.ViewModels
+namespace UseWindowChromeTitleBarWPFUsingMVVM.ViewModels
 {
     public class WindowChromeViewModel : INotifyPropertyChanged
     {
@@ -54,7 +54,6 @@ namespace EV_AreaRandomizer.ViewModels
 
         public WindowChromeViewModel()
         {
-
             WindowStateChangedCommand = new WindowChromeCommand(Execute_WindowStateChangedCommand);
             MaximizeWindowCommand = new WindowChromeCommand(Execute_MaximizeWindowCommand);
             RestoreWindowCommand = new WindowChromeCommand(Execute_RestoreWindowCommand);

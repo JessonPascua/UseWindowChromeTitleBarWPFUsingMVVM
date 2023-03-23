@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:local="clr-namespace:UseWindowChromeTitleBarWPFUsingMVVM.Views"
+        xmlns:local="clr-namespace:UseWindowChromeTitleBarWPFUsingMVVM.ViewModels"
         mc:Ignorable="d"
         Title="SampleWindowChromeView" Height="450" Width="800" WindowState="{Binding WindowState}">
     <i:Interaction.Triggers>
@@ -14,12 +14,61 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
+
+
+    <Window.Resources>
+        <local:WindowChromeViewModel x:Key="windowChromeViewModel"/>
+    </Window.Resources>
+
     <!--Add the WindowChrome object-->
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="34" />
     </WindowChrome.WindowChrome>
     
-    <Grid>
-        
-    </Grid>
+    <Border BorderBrush="#FF3C3C3C" BorderThickness="{Binding MainBorderThickness}" >
+        <Grid x:Name="parentContainer">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="Auto"/>
+                <RowDefinition Height ="10"/>
+                <RowDefinition/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="#FF3C3C3C" Grid.ColumnSpan="5" DataContext="{StaticResource windowChromeViewModel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="108.491"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="45"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel  Grid.Column="0" Orientation="Horizontal" Height="18" Width="108">
+                    <!--App icon-->
+                    <Image  Width="18" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Foreground="White" Padding="2,0,0,0" Text="Archive Search" FontFamily="Arial" Margin="2 3 0 0" />
+                </StackPanel>
+
+                <Button Grid.Column="2" Style="{StaticResource MinimizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Minimize"
+                            Command="{Binding MinimizeWindowCommand}" HorizontalAlignment="Right" Width="45"/>
+                <Button Grid.Column="3" x:Name="RestoreButton" Visibility="{Binding RestoreButtonVisibility}" Style="{StaticResource RestoreButtonStyle}" 
+                            Command="{Binding RestoreWindowCommand}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Restore"/>
+                <Button Grid.Column="3" x:Name="MaximizeButton" Visibility="{Binding MaximizeButtonVisibility}" Style="{StaticResource MaximizeButtonStyle}" 
+                            Command="{Binding MaximizeWindowCommand}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Maximize" HorizontalAlignment="Right" Width="45" />
+                <Button Grid.Column="4" Style="{StaticResource CloseButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Close"
+                            Command="{Binding CloseWindowCommand}" HorizontalAlignment="Right" Width="45"/>
+            </Grid>
+            <!--End of WindowChrome object-->
+            
+            <!--Additional Items-->
+            <Grid Grid.Column="1" Grid.Row="2">
+                <TextBox Text="TEST" />
+            </Grid>
+            
+        </Grid>
+    </Border>
 </Window>
