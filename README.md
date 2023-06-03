@@ -1,1 +1,1 @@
-# UseWindowChromeTitleBarWPFUsingMVVM
+# UsingWindowChromeTitleBarWPFUsingMVVM
