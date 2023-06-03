@@ -1,7 +1,7 @@
-﻿<Application x:Class="UseWindowChromeTitleBarWPFUsingMVVM.App"
+﻿<Application x:Class="core_wpf_WindowChromeTitleBar.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:UseWindowChromeTitleBarWPFUsingMVVM"
+             xmlns:local="clr-namespace:core_wpf_WindowChromeTitleBar"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="Views\SampleWindowChromeView.xaml">
     <Application.Resources>

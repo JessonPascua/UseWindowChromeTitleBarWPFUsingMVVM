@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace UseWindowChromeTitleBarWPFUsingMVVM
+namespace core_wpf_WindowChromeTitleBar
 {
     public class WindowChromeCommand : ICommand
     {

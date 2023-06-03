@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace UseWindowChromeTitleBarWPFUsingMVVM
+namespace core_wpf_WindowChromeTitleBar
 {
     /// <summary>
     /// Interaction logic for App.xaml

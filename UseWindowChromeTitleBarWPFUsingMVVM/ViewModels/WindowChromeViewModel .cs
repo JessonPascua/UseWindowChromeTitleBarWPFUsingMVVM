@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace UseWindowChromeTitleBarWPFUsingMVVM.ViewModels
+namespace core_wpf_WindowChromeTitleBar.ViewModels
 {
     public class WindowChromeViewModel : INotifyPropertyChanged
     {
