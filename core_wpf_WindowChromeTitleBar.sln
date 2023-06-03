@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.5.33502.453
+VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "core_wpf_WindowChromeTitleBar", "UseWindowChromeTitleBarWPFUsingMVVM\core_wpf_WindowChromeTitleBar.csproj", "{0D15D58A-F3CC-4304-B86B-5DEE954911C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "core_wpf_WindowChromeTitleBar", "core_wpf_WindowChromeTitleBar\core_wpf_WindowChromeTitleBar.csproj", "{21B11E8A-A1EF-41D2-AD9F-F49E31B2F67E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0D15D58A-F3CC-4304-B86B-5DEE954911C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D15D58A-F3CC-4304-B86B-5DEE954911C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D15D58A-F3CC-4304-B86B-5DEE954911C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D15D58A-F3CC-4304-B86B-5DEE954911C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21B11E8A-A1EF-41D2-AD9F-F49E31B2F67E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21B11E8A-A1EF-41D2-AD9F-F49E31B2F67E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21B11E8A-A1EF-41D2-AD9F-F49E31B2F67E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21B11E8A-A1EF-41D2-AD9F-F49E31B2F67E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {08726F77-D593-4408-A8E0-19AEE88976A6}
+		SolutionGuid = {D205826D-2067-4228-A5D3-CB5A26A2A8D2}
 	EndGlobalSection
 EndGlobal
